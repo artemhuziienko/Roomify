@@ -28,20 +28,31 @@ export const generate3DView = async ({sourceImage}: Generate3DViewParams) =>{
 
     if(!mimeType || !base64Data) throw new Error("Invalid source image payload");
 
-    const response = await puter.ai.txt2img(ROOMIFY_RENDER_PROMPT,{
-        provider: 'gemini',
-        model: 'gemini-2.5-flash-image-preview',
-        input_image: base64Data,
-        input_image_mime_type: mimeType,
-        ratio: {w: 1024, h: 1024}
-    })
+    // const response = await puter.ai.txt2img(ROOMIFY_RENDER_PROMPT,{
+    //     provider: 'gemini',
+    //     model: 'gemini-2.5-flash-image-preview',
+    //     input_image: base64Data,
+    //     input_image_mime_type: mimeType,
+    //     ratio: {w: 1024, h: 1024}
+    // })
+    //
+    // const rawImageUrl = (response as HTMLImageElement).src ?? null;
+    // if (!rawImageUrl) return {renderedImage: null, renderedPath: undefined};
+    // const renderedImage = rawImageUrl.startsWith('data:image')
+    // ? rawImageUrl : await fetchAsDataUrl(rawImageUrl);
 
-    const rawImageUrl = (response as HTMLImageElement).src ?? null;
-    if (!rawImageUrl) return {renderedImage: null, renderedPath: undefined};
-    const renderedImage = rawImageUrl.startsWith('data:image')
-    ? rawImageUrl : await fetchAsDataUrl(rawImageUrl);
+    const renderedImage = await fetch('http://localhost:3007/generate_image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            image: base64Data,
+            mimeType: mimeType
+        })
+    }).then((data) => data.json());
 
-    return {renderedImage: renderedImage, renderedPath: undefined};
+    return {renderedImage: renderedImage.image, renderedPath: undefined};
 
 
 }
