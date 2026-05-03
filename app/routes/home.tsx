@@ -53,7 +53,7 @@ export default function Home() {
             setProjects(items!)
         }
         fetchProjects();
-    })
+    }, [])
     return (
       <div className="home">
         <NavBar />
