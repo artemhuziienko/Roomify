@@ -10,6 +10,8 @@ A web application that takes a floor plan as input and uses AI to generate reali
 
 <img width="1909" height="879" alt="image" src="https://github.com/user-attachments/assets/54bc56f0-5484-4a22-abf3-f02d9dda1423" />
 
+https://github.com/user-attachments/assets/e4401955-5d60-4305-8d46-e510c8307525
+
 ---
 
 ## Features
